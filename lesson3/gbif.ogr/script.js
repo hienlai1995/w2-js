@@ -349,28 +349,17 @@ for (let i = 0; i < arrNav.length; i++) {
 }
 //  remover submenu
 function removesubmenu() {
-  document.getElementById("insidegbif").classList.remove("activesubmenu");
-  document.getElementById("newsoutreach").classList.remove("activesubmenu");
-  document.getElementById("network").classList.remove("activesubmenu");
-  document.getElementById("volunteers").classList.remove("activesubmenu");
-  document.getElementById("activities").classList.remove("activesubmenu");
-  document.getElementById("psublishing").classList.remove("activesubmenu");
-  document.getElementById("Dataaccessanduse").classList.remove("activesubmenu");
-  document.getElementById("gbiflabs").classList.remove("activesubmenu");
-  document.getElementById("sharedata").classList.remove("activesubmenu");
-  document.getElementById("usedata").classList.remove("activesubmenu");
-  document.getElementById("subgetdata").classList.remove("activesubmenu");
-  document.getElementById("about").classList.remove("colorgreen");
-  document.getElementById("community").classList.remove("colorgreen");
-  document.getElementById("tools").classList.remove("colorgreen");
-  document.getElementById("howto").classList.remove("colorgreen");
-  document.getElementById("getdata").classList.remove("colorgreen");
-  //
-  document.getElementById("container4").classList.remove("containersubmenu");
-  document.getElementById("container3").classList.remove("containersubmenu");
-  document.getElementById("container2").classList.remove("containersubmenu");
-  document.getElementById("container1").classList.remove("containersubmenu");
-  document.getElementById("container0").classList.remove("containersubmenu");
+  for (let i = 0; i < arrNav.length; i++) {
+    document.getElementById(arrNav[i].id).classList.remove("colorgreen");
+    document
+      .getElementById(`container${i}`)
+      .classList.remove("containersubmenu");
+    for (let j = 0; j < arrNav[i].listdata.length; j++) {
+      document
+        .getElementById(arrNav[i].listdata[j].idsub)
+        .classList.remove("activesubmenu");
+    }
+  }
 }
 // remove frominput
 function removerinputform() {
