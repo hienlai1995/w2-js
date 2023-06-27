@@ -93,6 +93,7 @@
   list-style: none;
   border-left: 1px solid gray;
   padding-left: 10px;
+  z-index: 4;
 }
 .tittleSubnav {
   display: block;
@@ -287,7 +288,7 @@
 }
 .acontaiver {
   display: flex;
-  width: 70%;
+  width: 80%;
   justify-content: left;
 }
 .acontaiver a {
@@ -297,13 +298,13 @@
   align-items: center;
   text-decoration: none;
   color: aliceblue;
-  z-index: 2;
+  z-index: 1;
 }
 .acontaivertow {
   display: flex;
   width: 45%;
   justify-content: left;
-  z-index: 2;
+  z-index: 1;
 }
 .acontaivertow a {
   display: flex;
@@ -346,7 +347,7 @@
   margin-top: 20px;
 }
 .acontaiverbackground {
-  width: 70%;
+  width: 80%;
   height: 40px;
   background-color: black;
   position: absolute;
