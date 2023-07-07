@@ -370,7 +370,6 @@ function removerinputform() {
   document.getElementById("showlogin").classList.remove("enable");
   document.getElementById("showregister").classList.remove("showloginstyle");
   document.getElementById("showregister").classList.add("enable");
-  document.getElementById("inputloginform").style.height = "400px";
   document.getElementById("scrolloginfom").style.backgroundColor = "green";
   document.getElementById("scrollregisterfom").style.backgroundColor = "gray";
 }
@@ -401,7 +400,6 @@ document.getElementById("loginfom").addEventListener("click", function () {
   document.getElementById("showlogin").classList.remove("enable");
   document.getElementById("showregister").classList.remove("showloginstyle");
   document.getElementById("showregister").classList.add("enable");
-  document.getElementById("inputloginform").style.height = "400px";
   document.getElementById("scrolloginfom").style.backgroundColor = "green";
   document.getElementById("scrollregisterfom").style.backgroundColor = "gray";
 });
@@ -412,7 +410,6 @@ document.getElementById("registerfom").addEventListener("click", function () {
   document.getElementById("showlogin").classList.remove("showloginstyle");
   document.getElementById("showregister").classList.remove("enable");
   document.getElementById("showregister").classList.add("showloginstyle");
-  document.getElementById("inputloginform").style.height = "550px";
   document.getElementById("scrollregisterfom").style.backgroundColor = "green";
   document.getElementById("scrolloginfom").style.backgroundColor = "gray";
 });
@@ -448,26 +445,168 @@ bodyboss.addEventListener("click", (e) => {
     removelanguageform();
   }
 });
-let count = 0;
 
-function cc(card) {
-  // Only change code below this line
-  var regex = /[JQKA]/;
-  if (card > 1 && card < 7) {
-    count++;
-  } else if (card === 10 || regex.test(card)) {
-    count--;
+// vailidate form
+const errousename = document.getElementById("errousename");
+const erropassword = document.getElementById("erropassword");
+const countryreg = document.getElementById("countryreg");
+const emailreg = document.getElementById("emailreg");
+const usenamereg = document.getElementById("usenamereg");
+const passreg = document.getElementById("passreg");
+const erromessage = document.createElement("p");
+const erropasswordmes = document.createElement("p");
+const countreep = document.createElement("p");
+const emailregp = document.createElement("p");
+const usenameregep = document.createElement("p");
+const mespassreg = document.createElement("p");
+countreep.style = "color:red";
+emailregp.style = "color:red";
+usenameregep.style = "color:red";
+mespassreg.style = "color:red";
+erropasswordmes.style = "color:red";
+erromessage.style = "color:red";
+const reemail = /\S+@\S+\.\S+/;
+const reusename = /^[\w]+$/;
+const repassword = /^[A-Z].{8,15}$/;
+let exepemailorusernameformlogin;
+let exeppassformlogin;
+//
+let exeppassformreg;
+let exepcountryformreg;
+let exepusenameformreg;
+let exepemailformreg;
+
+function vailydateEmail(a, changevaluemesserr, divadd, c) {
+  if (!reemail.test(a)) {
+    changevaluemesserr.textContent =
+      "your email must be in the format abc@example.com";
+    divadd.appendChild(changevaluemesserr);
+    document.getElementById(c).classList.add("lol");
+    return false;
+  } else {
+    document.getElementById(c).classList.remove("lol");
+    return true;
   }
-
-  if (count > 0) return count + " Bet";
-  return count + " Hold";
-
-  // Only change code above this line
 }
+function vailidateusename(a, changevaluemesserr, divadd, c) {
+  if (a.length < 8) {
+    changevaluemesserr.textContent =
+      "Your use name must be more than 8 characters!";
+    divadd.appendChild(changevaluemesserr);
+    document.getElementById(c).classList.add("lol");
+    return false;
+  } else if (a.length >= 8 && reusename.test(a) == false) {
+    changevaluemesserr.textContent =
+      "use name cannot contain special characters !...#$%^";
+    divadd.appendChild(changevaluemesserr);
+    document.getElementById(c).classList.add("lol");
+    return false;
+  } else {
+    document.getElementById(c).classList.remove("lol");
+    return true;
+  }
+}
+// vailate password
+function vailadatepassword(a, changevaluemesserr, divadd, c) {
+  if (!repassword.test(a)) {
+    changevaluemesserr.textContent =
+      "Your password must start with a capital letter and contain 8-15 characters!";
+    divadd.appendChild(changevaluemesserr);
+    document.getElementById(c).classList.add("lol");
 
-cc(2);
-cc(3);
-cc(7);
-cc("K");
-cc("A");
-console.log(cc("289"));
+    return false;
+  } else {
+    document.getElementById(c).classList.remove("lol");
+    return true;
+  }
+}
+function validateofuesenametotal(a) {
+  let isEmail = false;
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] == "@") {
+      isEmail = true;
+      break;
+    }
+  }
+  if (isEmail) {
+    exepemailorusernameformlogin = vailydateEmail(
+      a,
+      erromessage,
+      errousename,
+      "usename"
+    );
+  } else {
+    exepemailorusernameformlogin = vailidateusename(
+      a,
+      erromessage,
+      errousename,
+      "usename"
+    );
+  }
+}
+// sử lí sự kiện
+// nút login
+const loginbuton = document.getElementById("loginbuton");
+const nextbutton = document.getElementById("nextbutton");
+loginbuton.addEventListener("click", function () {
+  const usenamevalue = document.getElementById("usename").value;
+  const passwordvalue = document.getElementById("password").value;
+  const mesusename = document.getElementById("usename").nextSibling;
+  const mespassword = document.getElementById("password").nextSibling;
+  if (mesusename != null) {
+    mesusename.remove();
+  }
+  if (mespassword != null) {
+    mespassword.remove();
+  }
+  validateofuesenametotal(usenamevalue);
+  exeppassformlogin = vailadatepassword(
+    passwordvalue,
+    erropasswordmes,
+    erropassword,
+    "password"
+  );
+  if (exeppassformlogin && exepemailorusernameformlogin) {
+    alert("chờ sử lí");
+  }
+});
+// nút next
+nextbutton.addEventListener("click", function (a) {
+  const countreevalue = document.getElementById("countreevalue").value;
+  const emailregvalue = document.getElementById("emailregvalue").value;
+  const usenameregvalue = document.getElementById("usenameregvalue").value;
+  const passregvalue = document.getElementById("passregvalue").value;
+  //
+  const mescountreevalue = document.getElementById("countreevalue").nextSibling;
+  const mesemailregvalue = document.getElementById("emailregvalue").nextSibling;
+  const mesusenameregvalue =
+    document.getElementById("usenameregvalue").nextSibling;
+  const mespassregvalue = document.getElementById("passregvalue").nextSibling;
+  // remover
+  if (mescountreevalue != null) mescountreevalue.remove();
+  if (mesemailregvalue != null) mesemailregvalue.remove();
+  if (mesusenameregvalue != null) mesusenameregvalue.remove();
+  if (mespassregvalue != null) mespassregvalue.remove();
+  exeppassformreg = vailadatepassword(
+    passregvalue,
+    mespassreg,
+    passreg,
+    "passregvalue"
+  );
+  exepemailformreg = vailydateEmail(
+    emailregvalue,
+    emailregp,
+    emailreg,
+    "emailregvalue"
+  );
+  exepusenameformreg = vailidateusename(
+    usenameregvalue,
+    usenameregep,
+    usenamereg,
+    "usenameregvalue"
+  );
+  if (exeppassformreg && exepemailformreg && exepusenameformreg) {
+    alert("chờ sử lí");
+  }
+});
